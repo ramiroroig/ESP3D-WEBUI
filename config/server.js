@@ -89,14 +89,14 @@ app.get("/command", function (req, res) {
     commandsQuery(req, res, SendWS)
 })
 
-/*app.get("/sdfiles", function (req, res) {
+app.get("/sdfiles", function (req, res) {
   res.status(200);
   res.send(
     '{"files":[{"name":"LOST.DIR","shortname":"LOST.DIR","size":"-1"},{"name":".android_secure","shortname":"ANDROI~1","size":"-1"},{"name":"app","shortname":"APP","size":"-1"},{"name":"framework","shortname":"FRAMEW~1","size":"-1"},{"name":"lib","shortname":"LIB","size":"-1"},{"name":"permissions","shortname":"PERMIS~1","size":"-1"},{"name":".Trash-1000","shortname":"TRASH-~1","size":"-1"},{"name":".FileExpert","shortname":"FILEEX~1","size":"-1"},{"name":"download","shortname":"DOWNLOAD","size":"-1"},{"name":"Android","shortname":"ANDROID","size":"-1"},{"name":".mmsyscache","shortname":"MMSYSC~1","size":"-1"},{"name":"clockworkmod","shortname":"CLOCKW~1","size":"-1"},{"name":"Evernote","shortname":"EVERNOTE","size":"-1"},{"name":"data","shortname":"DATA","size":"-1"},{"name":".estrongs","shortname":"ESTRON~1","size":"-1"},{"name":"DCIM","shortname":"DCIM","size":"-1"},{"name":"backups","shortname":"BACKUPS","size":"-1"},{"name":".zdworks","shortname":"ZDWORK~1","size":"-1"},{"name":"toolbox-stericson","shortname":"TOOLBO~1","size":"75.54 KB"},{"name":"SystemROMToolbox","shortname":"SYSTEM~1","size":"-1"},{"name":"busybox-stericson","shortname":"BUSYBO~1","size":"843.20 KB"},{"name":"recovery.img","shortname":"RECOVERY.IMG","size":"6.00 MB"},{"name":"preloader.img","shortname":"PRELOA~1.IMG","size":"128.00 KB"},{"name":"nvram.img","shortname":"NVRAM.IMG","size":"3.00 MB"},{"name":"seccnfg.img","shortname":"SECCNFG.IMG","size":"128.00 KB"},{"name":"uboot.img","shortname":"UBOOT.IMG","size":"384.00 KB"},{"name":"boot.img","shortname":"BOOT.IMG","size":"6.00 MB"},{"name":"secstatic.img","shortname":"SECSTA~1.IMG","size":"1.12 MB"},{"name":"system.img","shortname":"SYSTEM.IMG","size":"170.00 MB"},{"name":"misc.img","shortname":"MISC.IMG","size":"384.00 KB"},{"name":"cache.img","shortname":"CACHE.IMG","size":"60.00 MB"},{"name":"logo.img","shortname":"LOGO.IMG","size":"3.00 MB"},{"name":"expdb.img","shortname":"EXPDB.IMG","size":"640.00 KB"},{"name":"userdata.img","shortname":"USERDATA.IMG","size":"261.25 MB"},{"name":"recovery2.img","shortname":"RECOVE~1.IMG","size":"6.00 MB"},{"name":"touchrec.img","shortname":"TOUCHREC.IMG","size":"4.00 MB"},{"name":"restart.gcode","shortname":"RESTAR~1.GCO","size":"1 B"},{"name":"M3.G","shortname":"M3.G","size":"75 B"},{"name":"WeChat Image_20210108102318.jpg","shortname":"WECHAT~1.JPG","size":"876.47 KB"},{"name":"test.txt","shortname":"test.txt","size":"0 B"},{"name":"foo.txt","shortname":"foo.txt","size":"13 B"},{"name":"myfile.txt","shortname":"myfile.txt","size":"0 B"},{"name":"update.zip","shortname":"update.zip","size":"1.29 MB"},{"name":"luc","shortname":"luc","size":"-1"}],"path":"/","occupation":"22","status":"ok","total":"3.67 GB","used":"833.38 MB"}'
   );
   console.log(commandcolor(`[server]/sdfiles)`));
   return;
-});*/
+});
 
 function fileSizeString(size) {
     if (size === -1) return ""

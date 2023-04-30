@@ -98,6 +98,7 @@ const isPrintStatus = (str) => {
     const reg_search1 = /(Not\sSD\sprinting|Done\sprinting\sfile)/
     const reg_search2 = /SD\sprinting\sbyte\s([0-9]*)\/([0-9]*)/
     const reg_search3 =/echo:\sM73\sProgress:\s+([0-9.]*)%;\sTime\sleft:\s([0-9]*)m;\sChange:\s([0-9]*)m;/
+    const reg_search4 =/.*Percent done:\s+([0-9.]*).*time remaining in mins:\s+([0-9.]*).*Change in mins:\s+([0-9.]*).*/
     if ((result = reg_search1.exec(str)) !== null) {
         return true
     }
@@ -105,6 +106,9 @@ const isPrintStatus = (str) => {
         return true
     }
     if ((result = reg_search3.exec(str)) !== null) {
+        return true
+    }
+    if ((result = reg_search4.exec(str)) !== null) {
         return true
     }
     if (str.startsWith("echo:Print time:")) {
@@ -118,6 +122,7 @@ const getPrintStatus = (str) => {
     const reg_search1 = /(Not\sSD\sprinting|Done\sprinting\sfile)/
     const reg_search2 = /SD\sprinting\sbyte\s([0-9]*)\/([0-9]*)/
     const reg_search3 =/echo:\sM73\sProgress:\s+([0-9.]*)%;\sTime\sleft:\s([0-9]*)m;\sChange:\s([0-9]*)m;/
+    const reg_search4 =/.*Percent done:\s+([0-9.]*).*time remaining in mins:\s+([0-9.]*).*Change in mins:\s+([0-9.]*).*/
     if ((result = reg_search1.exec(str)) !== null) {
         return {
             status: result[1],
@@ -140,6 +145,16 @@ const getPrintStatus = (str) => {
         return {
             status: (progress === 100) ? "Done" : ((progress === 0) ? "Not printing" : `Printing: ${result[2]}m remaining`),
             printing: (!(progress === 100 || progress === 0)),
+            progress: progress.toFixed(2),
+        }
+    }
+    if ((result = reg_search4.exec(str)) !== null) {
+        let progress = parseFloat(result[1])
+        let hours = Math.floor(result[2]/60);
+        let minuts = result[2] % 60;
+        return {
+            status: (progress === 100) ? "Done" : ((isNaN(progress)) ? "Not printing" : `Printing: ${hours}h ${minuts}m remaining`),
+            printing: (!(progress === 100 || isNaN(progress))),
             progress: progress.toFixed(2),
         }
     }
@@ -191,10 +206,14 @@ const isStatus = (str) => {
     let result = null
     const reg_search1 = /echo:busy:\s(.*)/
     const reg_search2 = /Error:(.*)/
+    const reg_search3 = /\/\/.*action:(.*)/
     if ((result = reg_search1.exec(str)) !== null) {
         return true
     }
     if ((result = reg_search2.exec(str)) !== null) {
+        return true
+    }
+    if ((result = reg_search3.exec(str)) !== null) {
         return true
     }
     return false
@@ -204,10 +223,14 @@ const getStatus = (str) => {
     let result = null
     const reg_search1 = /echo:busy:\s(.*)/
     const reg_search2 = /Error:(.*)/
+    const reg_search3 = /\/\/.*action:(.*)/
     if ((result = reg_search1.exec(str)) !== null) {
         return result[1]
     }
     if ((result = reg_search2.exec(str)) !== null) {
+        return result[1]
+    }
+    if ((result = reg_search3.exec(str)) !== null) {
         return result[1]
     }
     return "Unknown"

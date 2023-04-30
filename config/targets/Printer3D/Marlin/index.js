@@ -333,6 +333,23 @@ const commandsQuery = (req, res, SendWS) => {
         return
     }
 
+    if (url.indexOf('M73') != -1) {
+        /*
+        SendWS('NORMAL MODE: Percent done: 45; print time remaining in mins: 67; Change in mins: 4\n'+
+        'ok\n')
+        */
+
+        SendWS('NORMAL MODE: Percent done: 45; print time remaining in mins: 34; Change in mins: 2\n'+
+        'SILENT MODE: Percent done: 45; print time remaining in mins: 32; Change in mins: 3\n' +
+        'ok\n')
+
+       /*
+       SendWS('echo: M73 Progress: 45%; Time left: 34m; Change: 6m;\nok\n')
+       */
+        res.send('')
+        return
+    }
+
     if (url.indexOf('M115') != -1) {
         SendWS(
             'FIRMWARE_NAME:Marlin 2.0.9.1 (Sep  8 2021 17:07:06) SOURCE_CODE_URL:github.com/MarlinFirmware/Marlin PROTOCOL_VERSION:1.0 MACHINE_TYPE:MRR ESPA EXTRUDER_COUNT:1 UUID:cede2a2f-41a2-4748-9b12-c55c62f367ff\n' +

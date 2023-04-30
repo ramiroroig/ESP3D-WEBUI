@@ -176,21 +176,21 @@
                         "id": "sdpausecmd",
                         "type": "text",
                         "label": "P98",
-                        "value": "M25",
+                        "value": "[ESP701]action=PAUSE",
                         "help": "S97"
                     },
                     {
                         "id": "sdresumecmd",
                         "type": "text",
                         "label": "P99",
-                        "value": "M24",
+                        "value": "[ESP701]action=RESUME",
                         "help": "S97"
                     },
                     {
                         "id": "sdstopcmd",
                         "type": "text",
                         "label": "P100",
-                        "value": "M524",
+                        "value": "[ESP701]action=ABORT",
                         "help": "S97"
                     }
                 ]
