@@ -322,3 +322,71 @@ wss.on("connection", (socket, request) => {
 wss.on("error", (error) => {
     console.log(wscolor("[ws] Error:", error))
 })
+
+
+app.get("/api/printer", function (req, res) {
+    res.status(200);
+    res.send(
+        '{"sd":{"ready": true},"state":{"flags":{"operational": false,"sdReady": true,"ready": true}}}'
+    );
+})
+
+
+app.get("/api/version", function (req, res) {
+    res.status(200);
+    res.send(
+        '{"api":"0.1","server":"2.0.6","text":"OctoPrint Node 2.0.6"}'
+    );
+})
+
+app.post("/api/files/local", function (req, res) {
+    
+    let mypath = req.query.path
+
+    if (typeof mypath == "undefined") {
+        if (typeof req.body.path == "undefined") {
+            mypath = "/"
+        } else {
+            mypath = (req.body.path == "/" ? "" : req.body.path) + "/"
+        }
+    }
+
+    let doprint = req.query.print;
+    if(typeof doprint == "undefined") {
+        if(typeof req.body.print == "undefined") {
+            dorint = false;
+        } else {
+            doprint = req.body.print;
+        }
+    }
+
+
+    let myFile = req.files.file
+    if (typeof myFile.length == "undefined") {
+        let fullpath = path.normalize(serverpath + "SD" + mypath + myFile.name)
+        myFile.mv(fullpath, function (err) {
+            if (err) return res.status(500).send(err)
+            res.send(filesList(mypath, "SD"))
+        })
+        return
+    } else {
+        console.log(myFile.length + " files")
+        for (let i = 0; i < myFile.length; i++) {
+            let fullpath = path.normalize(
+                serverpath + "SD" + mypath + myFile[i].name
+            )
+            myFile[i].mv(fullpath).then(() => {
+                if (i == myFile.length - 1) res.send(filesList(mypath, "SD"))
+            })
+        }
+    }
+
+
+
+
+
+
+    res.status(200);
+    res.send();
+})
+
